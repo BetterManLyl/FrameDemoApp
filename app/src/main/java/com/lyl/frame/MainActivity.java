@@ -1,9 +1,15 @@
 package com.lyl.frame;
 
+import android.content.Intent;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.lyl.frame.activity.SecondActivity;
 import com.lyl.frame.base.activity.BaseActivity;
+import com.lyl.frame.event.Event;
+import com.lyl.frame.event.EventCode;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,6 +37,18 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.tv)
     public void onViewClicked() {
-        ToastUtils.showShort("点击了");
+        startActivity(new Intent(this, SecondActivity.class));
+    }
+
+    @Override
+    public boolean isEventBusRegister() {
+        return true;
+    }
+
+    @Subscribe
+    public void onEvent(Event event) {
+        if (event.getCode() == EventCode.codeA) {
+            ToastUtils.showShort("111");
+        }
     }
 }

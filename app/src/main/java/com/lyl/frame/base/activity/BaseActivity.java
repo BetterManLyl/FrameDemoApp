@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lyl.frame.R;
+import com.lyl.frame.utils.EventBusUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -24,13 +25,41 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        unbinder = ButterKnife.bind(this);
+        initButterKnife();
         initView();
+        initEventBus();
+    }
+
+    /**
+     * 初始化ButterKnife
+     */
+    private void initButterKnife() {
+        unbinder = ButterKnife.bind(this);
     }
 
 
     /**
+     * 初始化EventBus
+     */
+    private void initEventBus() {
+        if (isEventBusRegister()) {
+            EventBusUtils.register(this);
+        }
+    }
+
+
+    /**
+     * 是否注册事件分发
+     *
+     * @return true 绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
+     */
+    public boolean isEventBusRegister() {
+        return false;
+    }
+
+    /**
      * 定义通用的标题栏
+     *
      * @param title 标题
      */
     public void setNorTitle(String title) {
@@ -61,7 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 获取布局
      *
-     * @return
+     * @return 布局id
      */
     public abstract int getLayoutId();
 
@@ -70,5 +99,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        if (isEventBusRegister()) {
+            EventBusUtils.unregister(this);
+        }
     }
 }
