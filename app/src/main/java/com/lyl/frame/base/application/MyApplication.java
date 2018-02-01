@@ -2,6 +2,8 @@ package com.lyl.frame.base.application;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -79,5 +81,7 @@ public class MyApplication extends Application {
      */
     private void initUtils() {
         Utils.init(this);
+        //设置log日志的开关
+        LogUtils.getConfig().setLogSwitch(true);
     }
 }

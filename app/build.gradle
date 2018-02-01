@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "27.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.lyl.frame"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -38,12 +38,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:25.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:design:25.+'
     //非常齐全的工具类
-    compile 'com.blankj:utilcode:1.9.10'
+    compile 'com.blankj:utilcode:1.12.0'
     //事件、消息传输
     compile 'org.greenrobot:eventbus:3.0.0'
     //RxPermissions
@@ -62,5 +62,22 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //OkGo
     compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.google.code.gson:gson:2.7'
     compile project(':crash-library')
+
+
+    //根据需要添加的三方库
+    //android chart 折线图
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    //banner 轮播图
+    compile 'com.youth.banner:banner:1.4.10'
+    //类似微信拍照和选择照片
+    compile 'com.lzy.widget:imagepicker:0.6.1'
+    //手势九宫格
+    compile ('com.takwolf.android:lock9view:0.1.1'){
+        exclude group: 'com.android.support'
+    }
+    //二维码扫描
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.9@aar'
+    compile 'cn.bingoogolapple:bga-zxing:1.1.9@aar'
 }

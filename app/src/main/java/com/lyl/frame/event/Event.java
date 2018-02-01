@@ -7,12 +7,11 @@ package com.lyl.frame.event;
 
 public class Event<T> {
 
-    public T t;
+    private T t;
 
-    public int code;
+    private int code;
 
     public Event(int code) {
-
         this.code = code;
     }
 

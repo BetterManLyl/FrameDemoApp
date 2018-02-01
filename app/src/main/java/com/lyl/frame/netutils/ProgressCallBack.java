@@ -4,8 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.Window;
 
-import com.lzy.okgo.callback.Callback;
-import com.lzy.okgo.model.Progress;
+import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
@@ -15,14 +14,15 @@ import com.lzy.okgo.request.base.Request;
  * 自定义的CallBack实现
  */
 
-public class ProgressCallBack<T> implements Callback<T> {
+public abstract class ProgressCallBack<T> extends JsonCallBack<T> {
 
     private ProgressDialog progressDialog = null;
 
-    public ProgressCallBack(Context context) {
-        super();
+    public ProgressCallBack(Context context,Class<T> clazz) {
+        super(clazz);
         initDialog(context);
     }
+
 
     private void initDialog(Context context) {
         if (progressDialog == null) {
@@ -50,36 +50,21 @@ public class ProgressCallBack<T> implements Callback<T> {
 
     @Override
     public void onSuccess(Response<T> response) {
+        super.onSuccess(response);
         dialogDiss();
-    }
-
-    @Override
-    public void onCacheSuccess(Response<T> response) {
-
     }
 
     @Override
     public void onError(Response<T> response) {
         dialogDiss();
-    }
+        Throwable throwable=response.getException();
+        throwable.getMessage();
 
-    @Override
-    public void onFinish() {
-        dialogDiss();
-    }
-
-    @Override
-    public void uploadProgress(Progress progress) {
-
-    }
-
-    @Override
-    public void downloadProgress(Progress progress) {
-
+        ToastUtils.showShort("请求失败");
     }
 
     @Override
     public T convertResponse(okhttp3.Response response) throws Throwable {
-        return null;
+        return super.convertResponse(response);
     }
 }

@@ -7,8 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.lyl.frame.R;
 import com.lyl.frame.utils.EventBusUtils;
+import com.lzy.okgo.OkGo;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -20,6 +22,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
+    public static final String TAG="lyl";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param title 标题
      */
-    public void setNorTitle(String title) {
+    public void initToolBar(String title, boolean homeAsUpEnabled) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_title);
         TextView titleText = (TextView) findViewById(R.id.tv_title);
         if (toolbar == null) {
@@ -71,9 +74,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }
         //设置toolbar左侧返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
         getSupportActionBar().setTitle(" ");
         titleText.setText(title);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * 初始化界面
@@ -102,5 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isEventBusRegister()) {
             EventBusUtils.unregister(this);
         }
+        //取消请求
+        OkGo.getInstance().cancelTag(this);
     }
 }

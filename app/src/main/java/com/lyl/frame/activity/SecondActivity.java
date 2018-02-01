@@ -19,6 +19,7 @@ public class SecondActivity extends BaseActivity {
     @Override
     public void initView() {
 
+        initToolBar("second",true);
     }
 
     @Override
