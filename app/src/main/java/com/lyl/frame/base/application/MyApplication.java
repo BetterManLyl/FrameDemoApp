@@ -11,6 +11,7 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -30,6 +31,7 @@ public class MyApplication extends Application {
         initUtils();
         initOkGo();
         initCrash();
+        LeakCanary.install(this);
     }
 
     /**

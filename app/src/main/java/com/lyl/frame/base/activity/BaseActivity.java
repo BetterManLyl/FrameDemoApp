@@ -1,5 +1,8 @@
 package com.lyl.frame.base.activity;
 
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.lyl.frame.R;
 import com.lyl.frame.utils.EventBusUtils;
+import com.lyl.frame.utils.StatusBarCompat;
 import com.lzy.okgo.OkGo;
 
 import butterknife.ButterKnife;
@@ -31,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initButterKnife();
         initView();
         initEventBus();
+        StatusBarCompat.compat(this);
     }
 
     /**
@@ -77,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
         getSupportActionBar().setTitle(" ");
         titleText.setText(title);
-
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
